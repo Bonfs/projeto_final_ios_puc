@@ -10,21 +10,15 @@ import SwiftUI
 
 @main
 struct projeto_finalApp: App {
-    // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @State private var path = NavigationPath()
     
+    // Create a single instance of the SessionManager and keep it alive for the app's lifecycle.
+    @StateObject private var sessionManager = SessionManager()
 
     var body: some Scene {
         WindowGroup {
-            if Auth.auth().currentUser != nil {
-                AppNavigationView()
-            } else {
-                NavigationStack(path: $path) {
-                    SignInView(path: $path)
-                }
-            }
+            RootView()
+                .environmentObject(sessionManager)
         }
-        
     }
 }

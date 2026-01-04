@@ -7,6 +7,7 @@
 
 import FirebaseAuth
 import SwiftUI
+import CoreData
 
 @main
 struct projeto_finalApp: App {
@@ -14,11 +15,14 @@ struct projeto_finalApp: App {
     
     // Create a single instance of the SessionManager and keep it alive for the app's lifecycle.
     @StateObject private var sessionManager = SessionManager()
+    
+    let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
             RootView()
                 .environmentObject(sessionManager)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

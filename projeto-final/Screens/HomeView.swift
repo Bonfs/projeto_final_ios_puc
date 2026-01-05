@@ -4,12 +4,12 @@ import FirebaseAuth
 
 struct HomeView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
-    // Fetch only items that are not done, sort them by creation date
+    
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \TodoItem.createdAt, ascending: true)],
         predicate: NSPredicate(format: "isDone == %@", NSNumber(value: false)),
-        animation: .default)
+        animation: .default
+    )
     private var items: FetchedResults<TodoItem>
 
     @State private var showingAddSheet = false
@@ -35,7 +35,7 @@ struct HomeView: View {
                                 .buttonStyle(BorderlessButtonStyle())
 
                                 VStack(alignment: .leading) {
-                                    Text(item.title ?? "Untitled")
+                                    Text(item.title ?? "???")
                                         .font(.headline)
                                     Text(item.desc ?? "")
                                         .font(.subheadline)

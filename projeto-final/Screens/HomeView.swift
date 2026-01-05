@@ -75,10 +75,24 @@ struct HomeView: View {
     }
     
     private func signOut() {
+        deleteAllItems()
         do {
             try Auth.auth().signOut()
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
+        }
+    }
+
+    private func deleteAllItems() {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = TodoItem.fetchRequest()
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            try viewContext.execute(batchDeleteRequest)
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            print("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
 

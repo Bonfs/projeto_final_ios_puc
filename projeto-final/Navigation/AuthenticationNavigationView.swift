@@ -11,7 +11,7 @@ struct AuthenticationNavigationView: View {
     @State private var path = NavigationPath()
     
     var body: some View {
-        // This is a separate navigation stack for the login flow.
+        // This is a separate navigation stack for the authentication flow.
         NavigationStack(path: $path) {
             SignInView(path: $path)
                 .navigationDestination(for: NavigationRoutes.self) { route in
@@ -20,6 +20,7 @@ struct AuthenticationNavigationView: View {
                             SignInView(path: $path)
                         case .signUp:
                             SignUpView()
+                             .navigationTitle("Criar conta")
                         default:
                             SignInView(path: $path)
                      }

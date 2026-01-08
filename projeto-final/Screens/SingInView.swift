@@ -18,7 +18,7 @@ struct SignInView : View {
     
     var body: some View {
         VStack {
-            Text("Lembretes PUC")
+            Text("TODO List - PUC")
             TextField("Seu Email", text: $email)
                 .keyboardType(.emailAddress)
                 .autocorrectionDisabled()
@@ -28,6 +28,7 @@ struct SignInView : View {
             SecureField("Sua senha", text: $password, )
                 .padding()
                 .border(.secondary)
+            NavigationLink("Não possui conta? Clique aqui.", value: NavigationRoutes.signUp)
             Button("Entrar") {
                 Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
                     if let error = error {
@@ -36,8 +37,6 @@ struct SignInView : View {
                         self.showingAlert = true
                     } else if let user = authResult?.user {
                         print("User signed in: \(user.email ?? "N/A")")
-                        // By resetting the path, we remove the sign-in view from the
-                        // navigation stack, so the user can't go back to it.
                         path = NavigationPath([NavigationRoutes.home])
                     } else {
                         self.alertMessage = "Unknown sign-in error."

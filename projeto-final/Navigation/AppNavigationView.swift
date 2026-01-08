@@ -16,12 +16,9 @@ struct AppNavigationView: View {
         NavigationStack(path: $path) {
             HomeView()
                 .navigationDestination(for: NavigationRoutes.self) { navigationRoutes in
-                    // Define destinations for routes accessible after login here.
-                    // For example: case .profile: ProfileView()
                     switch navigationRoutes {
                     case .home:
                         HomeView()
-                    // Fallback to home for any other routes in this stack
                     default:
                         HomeView()
                     }
